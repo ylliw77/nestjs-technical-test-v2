@@ -1,0 +1,2 @@
+ALTER TABLE "paulo"."provinces" ADD CONSTRAINT "provinces_country_id_countries_id_fk" FOREIGN KEY ("country_id") REFERENCES "paulo"."countries"("id") ON DELETE set null ON UPDATE cascade;--> statement-breakpoint
+ALTER TABLE "paulo"."cities" ADD CONSTRAINT "cities_province_id_provinces_id_fk" FOREIGN KEY ("province_id") REFERENCES "paulo"."provinces"("id") ON DELETE set null ON UPDATE cascade;
