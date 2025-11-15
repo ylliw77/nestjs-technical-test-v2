@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { DrizzleService } from '../../database/drizzle.service';
 import { employees, users } from '../../database/schema';
@@ -14,10 +14,12 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.drizzleService.db.select({
-      id: users.id,
-      username: users.username,
-      created_at: users.createdAt,
-    }).from(users).leftJoin(employees, eq(users.id, employees.id))
+    const data_user = await this.drizzleService.db.select().from(users).leftJoin(employees, eq(users.id, employees.user_id))
+
+    return {
+      status: HttpStatus.OK,
+      message: 'Data user loaded',
+      data: data_user
+    }
   }
 }

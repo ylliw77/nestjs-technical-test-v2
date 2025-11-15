@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CountriesService } from './countries.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
 import { Public } from '../auth/decorators/public.decorator';
+import { FindCountryDto } from './dto/find-country.dto';
 
 @Controller('countries')
 export class CountriesController {
@@ -15,8 +16,9 @@ export class CountriesController {
 
   @Public()
   @Get()
-  findAll() {
-    return this.countriesService.findAll();
+  findAll(@Query() params: FindCountryDto
+  ) {
+    return this.countriesService.findAll(params);
   }
 
   @Get(':id')
